@@ -1,0 +1,35 @@
+# systemd unit file (service)
+# to control the claymore miner
+
+# Evert Mouw <post@evert.net>
+# 2017-12-11
+
+# make sure the PIDFile equals the
+# setting in the claymore.sh script
+
+# and yeah sure you could do add a special user
+# because running as root is dangerous, i know,
+# but hey it's just a rig anyway ;)
+
+# the claymore.sh shellscript starts the miner
+# in a detached screen session if arg2=screen,
+# so we do Restart=on-success for in case you
+# hit ctrl-c or destroy the screen session, it
+# then gets restarted to get the mining going
+
+[Unit]
+Description=Claymore miner
+After=network.target
+
+[Service]
+Type=forking
+PIDFile=/var/run/claymorescreen.pid
+User=root
+Group=root
+WorkingDirectory=/root
+ExecStart=/opt/minerstuff/claymore.sh start screen
+ExecStop=/opt/minerstuff/claymore.sh stop
+Restart=on-success
+
+[Install]
+WantedBy=multi-user.target
