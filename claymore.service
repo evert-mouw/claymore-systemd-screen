@@ -2,7 +2,7 @@
 # to control the claymore miner
 
 # Evert Mouw <post@evert.net>
-# 2017-12-11
+# 2017-12-11, 2017-12-19
 
 # make sure the PIDFile equals the
 # setting in the claymore.sh script
@@ -29,6 +29,7 @@ Group=root
 WorkingDirectory=/root
 ExecStart=/opt/minerstuff/claymore.sh start screen
 ExecStop=/opt/minerstuff/claymore.sh stop
+TimeoutStopSec=10
 Restart=on-success
 
 [Install]
